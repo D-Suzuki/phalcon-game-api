@@ -1,0 +1,36 @@
+<?php
+
+namespace Db\ShareDb;
+
+Class PlayerJoinTbl extends \Db\ShareDb
+{
+
+    public static $table_name = 'player_join';
+
+    public static $column_list = [
+        'player_seq_num',
+        'level',
+        'nickname',
+        'profile_chara_id',
+        'last_login_time',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * レベル更新
+     */
+    public function updateLevel()
+    {
+
+    }
+
+    /**
+     * ニックネーム更新
+     */
+    public function updateNickname()
+    {
+
+    }
+
+}

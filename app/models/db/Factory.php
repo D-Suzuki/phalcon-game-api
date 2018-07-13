@@ -1,0 +1,56 @@
+<?php
+
+namespace Db;
+
+Class Factory
+{
+
+    /**
+     * DBインスタンスリスト
+     * @return array
+     */
+    private static $db_instance_list = array();
+
+    /**
+     * DBインスタンス取得
+     * @return array
+     */
+    public static function getInstance($db_class, string $sharding_id = null)
+    {
+        $connection_id = self::createConnectionId($db_class, $sharding_id);
+        $stack_key = $db_class . '_' . $connection_id;
+        if (isset(self::$db_instance_list[$stack_key]) === false) {
+            self::$db_instance_list[$stack_key] = new $db_class($connection_id);
+            if (\AppRegistry::getDbType() === 'write') {
+                self::$db_instance_list[$stack_key]->beginTransaction();
+            }
+        }
+        return self::$db_instance_list[$stack_key];
+    }
+
+    /**
+     * 接続ID取得
+     * @return array
+     */
+    private static function createConnectionId($db_class, $sharding_id = null)
+    {
+        $connect_type = \AppRegistry::getDbType(); // write or read
+        $db_name      = $db_class::$db_name;    // データベース名
+        if ($db_class::$is_sharding === true) {     // シャード
+            $shard = self::getShard($sharding_id);
+        } else {
+            $shard = '';
+        }
+        return $connect_type . '_' . $db_name . $shard;
+    }
+
+    /**
+     * シャード取得
+     * @return array
+     */
+    private static function getShard($sharding_id = null)
+    {
+        return $sharding_id;
+    }
+
+}

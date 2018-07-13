@@ -1,0 +1,17 @@
+<?php
+
+namespace GameObject\Sequence;
+
+use Db\ShareDb\PlayerSequenceTbl;
+
+Class PlayerSequence
+{
+
+    public static function createSeqNum()
+    {
+        $PlayerSequenceTbl = \Db\Factory::getInstance(PlayerSequenceTbl::class);
+        $PlayerSequenceTbl->create();
+        return $PlayerSequenceTbl->getLastInsertId();
+    }
+
+}

@@ -1,0 +1,17 @@
+<?php
+
+namespace Beans\Db;
+
+Class FriendBean extends BaseDbBean
+{
+
+    protected static function getColumnList()
+    {
+        return \Db\PlayerDb\FriendTbl::$column_list;
+    }
+
+    use \Traits\BeanParts\PlayerSeqNum;
+    use \Traits\BeanParts\FriendPlayerSeqNum;
+    use \Traits\BeanParts\Status;
+
+}

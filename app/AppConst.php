@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * アプリケーション定数クラス
+ */
+abstract Class AppConst
+{
+
+    /**
+     * 実行環境
+     */
+    const ENV_DEV  = 'dev';
+    const ENV_STG  = 'stg';
+    const ENV_REV  = 'rev';
+    const ENV_PROD = 'prod';
+
+    /**
+     * DBタイプ
+     */
+    const DB_TYPE_READ  = 'read';
+    const DB_TYPE_WRITE = 'write';
+
+    /**
+     * サイクル基準時間
+     */
+    const CYCLE_TIME_LOGIN       = '03:00:00';
+    const CYCLE_TIME_AGGREGATION = '00:00:00';
+
+    // オブジェクトタイプ
+    const OBJECT_TYPE_CHARA = 1;
+    const OBJECT_TYPE_ITEM  = 2;
+
+    // シーンID
+    const SCENE_ID_GACHA = 101;
+    const SCENE_ID_QUEST = 201;
+
+}

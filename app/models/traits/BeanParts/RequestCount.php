@@ -1,0 +1,32 @@
+<?php
+
+namespace Traits\BeanParts;
+
+Trait RequestCount
+{
+
+    /**
+     * 申請数
+     * @var int
+     */
+    protected $request_count = 0;
+
+    /**
+     * 申請数セット
+     * @param int $request_count
+     */
+    public function setRequestCount(int $request_count)
+    {
+        $this->request_count = $request_count;
+    }
+
+    /**
+     * 申請数取得
+     * @return int
+     */
+    public function getRequestCount()
+    {
+        return $this->request_count;
+    }
+
+}

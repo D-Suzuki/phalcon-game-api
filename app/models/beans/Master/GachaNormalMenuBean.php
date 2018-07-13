@@ -1,0 +1,13 @@
+<?php
+
+namespace Beans\Master;
+
+Class GachaNormalMenuBean extends GachaMenuBean
+{
+
+    public function getGachaMenuId()
+    {
+        return $this->draw_count;
+    }
+
+}

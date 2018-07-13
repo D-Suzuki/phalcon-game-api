@@ -1,0 +1,32 @@
+<?php
+
+namespace Traits\BeanParts;
+
+Trait CharaSeqNum
+{
+
+    /**
+     * キャラシーケンスNUM
+     * @var int
+     */
+    protected $chara_seq_num = null;
+
+    /**
+     * キャラシーケンスNUMセット
+     * @param int $chara_seq_num
+     */
+    public function setCharaSeqNum(int $chara_seq_num)
+    {
+        $this->chara_seq_num = $chara_seq_num;
+    }
+
+    /**
+     * キャラシーケンスNUM取得
+     * @return int
+     */
+    public function getCharaSeqNum()
+    {
+        return $this->chara_seq_num;
+    }
+
+}
