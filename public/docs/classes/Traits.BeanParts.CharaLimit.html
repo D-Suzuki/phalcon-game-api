@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src').replace( /\\/g, '/');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Beans.html">\Beans</a></li>
+                                                        <li><a href="../namespaces/Config.html">\Config</a></li>
+                                                        <li><a href="../namespaces/Controllers.html">\Controllers</a></li>
+                                                        <li><a href="../namespaces/Db.html">\Db</a></li>
+                                                        <li><a href="../namespaces/GameLogic.html">\GameLogic</a></li>
+                                                        <li><a href="../namespaces/GameObject.html">\GameObject</a></li>
+                                                        <li><a href="../namespaces/Logger.html">\Logger</a></li>
+                                                        <li><a href="../namespaces/Logics.html">\Logics</a></li>
+                                                        <li><a href="../namespaces/Modules.html">\Modules</a></li>
+                                                        <li><a href="../namespaces/PlayerObject.html">\PlayerObject</a></li>
+                                                        <li><a href="../namespaces/Takajo.html">\Takajo</a></li>
+                                                        <li><a href="../namespaces/Traits.html">\Traits</a></li>
+                                                        <li><a href="../namespaces/Util.html">\Util</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">635</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">4</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1083542263"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1083542263" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1910608478"></a>
+                                <a href="../namespaces/Beans.html" style="margin-left: 30px; padding-left: 0">Beans</a>
+            </div>
+            <div id="namespace-1910608478" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-406431921"></a>
+                                <a href="../namespaces/Beans.Db.html" style="margin-left: 30px; padding-left: 0">Db</a>
+            </div>
+            <div id="namespace-406431921" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Beans.Db.BaseDbBean.html">BaseDbBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Db.CharaBean.html">CharaBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Db.CoinBean.html">CoinBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Db.FriendBean.html">FriendBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Db.FriendCounterBean.html">FriendCounterBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Db.FriendRequestBean.html">FriendRequestBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Db.GachaCounterBean.html">GachaCounterBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Db.ItemBean.html">ItemBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Db.JewelBean.html">JewelBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Db.LifeBean.html">LifeBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Db.PlayerBean.html">PlayerBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Db.ProfileBean.html">ProfileBean</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1958569151"></a>
+                                <a href="../namespaces/Beans.Master.html" style="margin-left: 30px; padding-left: 0">Master</a>
+            </div>
+            <div id="namespace-1958569151" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Beans.Master.BaseMasterBean.html">BaseMasterBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Master.GachaBean.html">GachaBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Master.GachaMenuBean.html">GachaMenuBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Master.GachaNormalMenuBean.html">GachaNormalMenuBean</a></li>
+                                                    <li class="class"><a href="../classes/Beans.Master.GachaStepUpMenuBean.html">GachaStepUpMenuBean</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1490520315"></a>
+                                <a href="../namespaces/Beans.MasterData.html" style="margin-left: 30px; padding-left: 0">MasterData</a>
+            </div>
+            <div id="namespace-1490520315" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Beans.MasterData.EventBean.html">EventBean</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Beans.BaseBean.html">BaseBean</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-140907049"></a>
+                                <a href="../namespaces/Config.html" style="margin-left: 30px; padding-left: 0">Config</a>
+            </div>
+            <div id="namespace-140907049" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Config.App.html">App</a></li>
+                                                    <li class="class"><a href="../classes/Config.Db.html">Db</a></li>
+                                                    <li class="class"><a href="../classes/Config.Di.html">Di</a></li>
+                                                    <li class="class"><a href="../classes/Config.Log.html">Log</a></li>
+                                                    <li class="class"><a href="../classes/Config.Memcache.html">Memcache</a></li>
+                                                    <li class="class"><a href="../classes/Config.Redis.html">Redis</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2129166123"></a>
+                                <a href="../namespaces/Controllers.html" style="margin-left: 30px; padding-left: 0">Controllers</a>
+            </div>
+            <div id="namespace-2129166123" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2052033365"></a>
+                                <a href="../namespaces/Controllers.Admin.html" style="margin-left: 30px; padding-left: 0">Admin</a>
+            </div>
+            <div id="namespace-2052033365" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Controllers.Admin.BaseController.html">BaseController</a></li>
+                                                    <li class="class"><a href="../classes/Controllers.Admin.IndexController.html">IndexController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-70536566"></a>
+                                <a href="../namespaces/Controllers.Game.html" style="margin-left: 30px; padding-left: 0">Game</a>
+            </div>
+            <div id="namespace-70536566" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Controllers.Game.AchiveController.html">AchiveController</a></li>
+                                                    <li class="class"><a href="../classes/Controllers.Game.BaseController.html">BaseController</a></li>
+                                                    <li class="class"><a href="../classes/Controllers.Game.CharaController.html">CharaController</a></li>
+                                                    <li class="class"><a href="../classes/Controllers.Game.FriendController.html">FriendController</a></li>
+                                                    <li class="class"><a href="../classes/Controllers.Game.GachaController.html">GachaController</a></li>
+                                                    <li class="class"><a href="../classes/Controllers.Game.ItemController.html">ItemController</a></li>
+                                                    <li class="class"><a href="../classes/Controllers.Game.ProfileController.html">ProfileController</a></li>
+                                                    <li class="class"><a href="../classes/Controllers.Game.ProfileController.html">ProfileController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1163115860"></a>
+                                <a href="../namespaces/Db.html" style="margin-left: 30px; padding-left: 0">Db</a>
+            </div>
+            <div id="namespace-1163115860" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1501968914"></a>
+                                <a href="../namespaces/Db.HistoryDb.html" style="margin-left: 30px; padding-left: 0">HistoryDb</a>
+            </div>
+            <div id="namespace-1501968914" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Db.HistoryDb.AddCharasHistoryTbl.html">AddCharasHistoryTbl</a></li>
+                                                    <li class="class"><a href="../classes/Db.HistoryDb.UseJewelHistoryTbl.html">UseJewelHistoryTbl</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-337812214"></a>
+                                <a href="../namespaces/Db.PlayerDb.html" style="margin-left: 30px; padding-left: 0">PlayerDb</a>
+            </div>
+            <div id="namespace-337812214" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Db.PlayerDb.CharaTbl.html">CharaTbl</a></li>
+                                                    <li class="class"><a href="../classes/Db.PlayerDb.FriendRequestTbl.html">FriendRequestTbl</a></li>
+                                                    <li class="class"><a href="../classes/Db.PlayerDb.FriendTbl.html">FriendTbl</a></li>
+                                                    <li class="class"><a href="../classes/Db.PlayerDb.GachaCounterTbl.html">GachaCounterTbl</a></li>
+                                                    <li class="class"><a href="../classes/Db.PlayerDb.JewelTbl.html">JewelTbl</a></li>
+                                                    <li class="class"><a href="../classes/Db.PlayerDb.PlayerTbl.html">PlayerTbl</a></li>
+                                                    <li class="class"><a href="../classes/Db.PlayerDb.ProfileTbl.html">ProfileTbl</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-245093461"></a>
+                                <a href="../namespaces/Db.ShareDb.html" style="margin-left: 30px; padding-left: 0">ShareDb</a>
+            </div>
+            <div id="namespace-245093461" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Db.ShareDb.CharaSequenceTbl.html">CharaSequenceTbl</a></li>
+                                                    <li class="class"><a href="../classes/Db.ShareDb.FriendCounterTbl.html">FriendCounterTbl</a></li>
+                                                    <li class="class"><a href="../classes/Db.ShareDb.PlayerJoinTbl.html">PlayerJoinTbl</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Db.BaseDb.html">BaseDb</a></li>
+                                                    <li class="class"><a href="../classes/Db.Factory.html">Factory</a></li>
+                                                    <li class="class"><a href="../classes/Db.HistoryDb.html">HistoryDb</a></li>
+                                                    <li class="class"><a href="../classes/Db.PlayerDb.html">PlayerDb</a></li>
+                                                    <li class="class"><a href="../classes/Db.ShareDb.html">ShareDb</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-298166272"></a>
+                                <a href="../namespaces/GameLogic.html" style="margin-left: 30px; padding-left: 0">GameLogic</a>
+            </div>
+            <div id="namespace-298166272" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1514374977"></a>
+                                <a href="../namespaces/GameLogic.Result.html" style="margin-left: 30px; padding-left: 0">Result</a>
+            </div>
+            <div id="namespace-1514374977" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1664592016"></a>
+                                <a href="../namespaces/GameLogic.Result.Player.html" style="margin-left: 30px; padding-left: 0">Player</a>
+            </div>
+            <div id="namespace-1664592016" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/GameLogic.Result.Player.RenameResult.html">RenameResult</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-550944094"></a>
+                                <a href="../namespaces/GameObject.html" style="margin-left: 30px; padding-left: 0">GameObject</a>
+            </div>
+            <div id="namespace-550944094" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-111898932"></a>
+                                <a href="../namespaces/GameObject.Master.html" style="margin-left: 30px; padding-left: 0">Master</a>
+            </div>
+            <div id="namespace-111898932" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/GameObject.Master.AchiveMaster.html">AchiveMaster</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Master.BaseMaster.html">BaseMaster</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Master.CharaLevelMaster.html">CharaLevelMaster</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Master.CharaMaster.html">CharaMaster</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Master.EventMaster.html">EventMaster</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Master.GachaCharaTableMaster.html">GachaCharaTableMaster</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Master.GachaMaster.html">GachaMaster</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Master.GachaNormalMenuMaster.html">GachaNormalMenuMaster</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Master.GachaStepUpMenuMaster.html">GachaStepUpMenuMaster</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Master.ItemMaster.html">ItemMaster</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Master.LoginBonusMaster.html">LoginBonusMaster</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Master.PlayerExpMaster.html">PlayerExpMaster</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Master.PlayerLevelMaster.html">PlayerLevelMaster</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-168347695"></a>
+                                <a href="../namespaces/GameObject.Sequence.html" style="margin-left: 30px; padding-left: 0">Sequence</a>
+            </div>
+            <div id="namespace-168347695" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/GameObject.Sequence.CharaSequence.html">CharaSequence</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Sequence.PlayerSequence.html">PlayerSequence</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/GameObject.DailyCycle.html">DailyCycle</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.LotteryBox.html">LotteryBox</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.NgWord.html">NgWord</a></li>
+                                                    <li class="class"><a href="../classes/GameObject.Reward.html">Reward</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-180370194"></a>
+                                <a href="../namespaces/Logger.html" style="margin-left: 30px; padding-left: 0">Logger</a>
+            </div>
+            <div id="namespace-180370194" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Logger.AppLogger.html">AppLogger</a></li>
+                                                    <li class="class"><a href="../classes/Logger.DbLogger.html">DbLogger</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1788869561"></a>
+                                <a href="../namespaces/Logics.html" style="margin-left: 30px; padding-left: 0">Logics</a>
+            </div>
+            <div id="namespace-1788869561" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-28881966"></a>
+                                <a href="../namespaces/Logics.Login.html" style="margin-left: 30px; padding-left: 0">Login</a>
+            </div>
+            <div id="namespace-28881966" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-337700600"></a>
+                                <a href="../namespaces/Logics.Login.Result.html" style="margin-left: 30px; padding-left: 0">Result</a>
+            </div>
+            <div id="namespace-337700600" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Logics.Login.Result.LoginResult.html">LoginResult</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-53676408"></a>
+                                <a href="../namespaces/Logics.Result.html" style="margin-left: 30px; padding-left: 0">Result</a>
+            </div>
+            <div id="namespace-53676408" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1485466152"></a>
+                                <a href="../namespaces/Logics.Result.Achive.html" style="margin-left: 30px; padding-left: 0">Achive</a>
+            </div>
+            <div id="namespace-1485466152" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Logics.Result.Achive.ClearResult.html">ClearResult</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-152879096"></a>
+                                <a href="../namespaces/Logics.Result.Chara.html" style="margin-left: 30px; padding-left: 0">Chara</a>
+            </div>
+            <div id="namespace-152879096" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Logics.Result.Chara.AddCharasResult.html">AddCharasResult</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-807336231"></a>
+                                <a href="../namespaces/Logics.Result.Friend.html" style="margin-left: 30px; padding-left: 0">Friend</a>
+            </div>
+            <div id="namespace-807336231" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Logics.Result.Friend.AcceptResult.html">AcceptResult</a></li>
+                                                    <li class="class"><a href="../classes/Logics.Result.Friend.CancelResult.html">CancelResult</a></li>
+                                                    <li class="class"><a href="../classes/Logics.Result.Friend.RejectResult.html">RejectResult</a></li>
+                                                    <li class="class"><a href="../classes/Logics.Result.Friend.RemoveResult.html">RemoveResult</a></li>
+                                                    <li class="class"><a href="../classes/Logics.Result.Friend.RequestResult.html">RequestResult</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1943807958"></a>
+                                <a href="../namespaces/Logics.Result.Gacha.html" style="margin-left: 30px; padding-left: 0">Gacha</a>
+            </div>
+            <div id="namespace-1943807958" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Logics.Result.Gacha.PlayResult.html">PlayResult</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-639036212"></a>
+                                <a href="../namespaces/Logics.Result.Jewel.html" style="margin-left: 30px; padding-left: 0">Jewel</a>
+            </div>
+            <div id="namespace-639036212" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Logics.Result.Jewel.UseJewelResult.html">UseJewelResult</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-189264795"></a>
+                                <a href="../namespaces/Logics.Result.Lottery.html" style="margin-left: 30px; padding-left: 0">Lottery</a>
+            </div>
+            <div id="namespace-189264795" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Logics.Result.Lottery.DrawResult.html">DrawResult</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Logics.Result.BaseResult.html">BaseResult</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Logics.AchiveLogic.html">AchiveLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.CharaLogic.html">CharaLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.CoinLogic.html">CoinLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.FriendLogic.html">FriendLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.GachaLogic.html">GachaLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.ItemLogic.html">ItemLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.JewelLogic.html">JewelLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.LifeLogic.html">LifeLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.LoginLogic.html">LoginLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.LotteryLogic.html">LotteryLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.PaymentLogic.html">PaymentLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.PlayerLogic.html">PlayerLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.ProfileLogic.html">ProfileLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.QuestLogic.html">QuestLogic</a></li>
+                                                    <li class="class"><a href="../classes/Logics.RewradLogic.html">RewradLogic</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-285811405"></a>
+                                <a href="../namespaces/Modules.html" style="margin-left: 30px; padding-left: 0">Modules</a>
+            </div>
+            <div id="namespace-285811405" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Modules.Module.html">Module</a></li>
+                                                    <li class="class"><a href="../classes/Modules.Module.html">Module</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2006254280"></a>
+                                <a href="../namespaces/PlayerObject.html" style="margin-left: 30px; padding-left: 0">PlayerObject</a>
+            </div>
+            <div id="namespace-2006254280" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/PlayerObject.AchiveClear.html">AchiveClear</a></li>
+                                                    <li class="class"><a href="../classes/PlayerObject.Chara.html">Chara</a></li>
+                                                    <li class="class"><a href="../classes/PlayerObject.Coin.html">Coin</a></li>
+                                                    <li class="class"><a href="../classes/PlayerObject.Friend.html">Friend</a></li>
+                                                    <li class="class"><a href="../classes/PlayerObject.FriendCounter.html">FriendCounter</a></li>
+                                                    <li class="class"><a href="../classes/PlayerObject.FriendRequest.html">FriendRequest</a></li>
+                                                    <li class="class"><a href="../classes/PlayerObject.GachaCounter.html">GachaCounter</a></li>
+                                                    <li class="class"><a href="../classes/PlayerObject.Jewel.html">Jewel</a></li>
+                                                    <li class="class"><a href="../classes/PlayerObject.Life.html">Life</a></li>
+                                                    <li class="class"><a href="../classes/PlayerObject.Player.html">Player</a></li>
+                                                    <li class="class"><a href="../classes/PlayerObject.PlayerObject.html">PlayerObject</a></li>
+                                                    <li class="class"><a href="../classes/PlayerObject.Profile.html">Profile</a></li>
+                                                    <li class="class"><a href="../classes/PlayerObject.Quest.html">Quest</a></li>
+                                                    <li class="class"><a href="../classes/PlayerObject.RewardBox.html">RewardBox</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1968006265"></a>
+                                <a href="../namespaces/Takajo.html" style="margin-left: 30px; padding-left: 0">Takajo</a>
+            </div>
+            <div id="namespace-1968006265" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-287356583"></a>
+                                <a href="../namespaces/Takajo.Bootstrap.html" style="margin-left: 30px; padding-left: 0">Bootstrap</a>
+            </div>
+            <div id="namespace-287356583" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Takajo.Bootstrap.Service.html">Service</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-215232611"></a>
+                                <a href="../namespaces/Takajo.Config.html" style="margin-left: 30px; padding-left: 0">Config</a>
+            </div>
+            <div id="namespace-215232611" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Takajo.Config.Db.html">Db</a></li>
+                                                    <li class="class"><a href="../classes/Takajo.Config.Log.html">Log</a></li>
+                                                    <li class="class"><a href="../classes/Takajo.Config.Manager.html">Manager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1477241316"></a>
+                                <a href="../namespaces/Takajo.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
+            </div>
+            <div id="namespace-1477241316" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Takajo.Controller.BaseController.html">BaseController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2002931880"></a>
+                                <a href="../namespaces/Takajo.Db.html" style="margin-left: 30px; padding-left: 0">Db</a>
+            </div>
+            <div id="namespace-2002931880" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-742601937"></a>
+                                <a href="../namespaces/Takajo.Db.Adapter.html" style="margin-left: 30px; padding-left: 0">Adapter</a>
+            </div>
+            <div id="namespace-742601937" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1996078728"></a>
+                                <a href="../namespaces/Takajo.Db.Adapter.Pdo.html" style="margin-left: 30px; padding-left: 0">Pdo</a>
+            </div>
+            <div id="namespace-1996078728" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Takajo.Db.Adapter.Pdo.Mysql.html">Mysql</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Takajo.Db.Basedb.html">Basedb</a></li>
+                                                    <li class="class"><a href="../classes/Takajo.Db.Listener.html">Listener</a></li>
+                                                    <li class="class"><a href="../classes/Takajo.Db.Manager.html">Manager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1090267824"></a>
+                                <a href="../namespaces/Takajo.Logger.html" style="margin-left: 30px; padding-left: 0">Logger</a>
+            </div>
+            <div id="namespace-1090267824" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Takajo.Logger.BaseLogger.html">BaseLogger</a></li>
+                                                    <li class="class"><a href="../classes/Takajo.Logger.Manager.html">Manager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-454392892"></a>
+                                <a href="../namespaces/Traits.html" style="margin-left: 30px; padding-left: 0">Traits</a>
+            </div>
+            <div id="namespace-454392892" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-430008563"></a>
+                                <a href="../namespaces/Traits.BeanLogics.html" style="margin-left: 30px; padding-left: 0">BeanLogics</a>
+            </div>
+            <div id="namespace-430008563" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/Traits.BeanLogics.StartTimeAndEndTime.html">StartTimeAndEndTime</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1482507884"></a>
+                                <a href="../namespaces/Traits.BeanParts.html" style="margin-left: 30px; padding-left: 0">BeanParts</a>
+            </div>
+            <div id="namespace-1482507884" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/Traits.BeanParts.BonusDrawCount.html">BonusDrawCount</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.BonusLotteryId.html">BonusLotteryId</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.CharaId.html">CharaId</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.CharaLimit.html">CharaLimit</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.CharaSeqNum.html">CharaSeqNum</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.Count.html">Count</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.CreatedAt.html">CreatedAt</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.DailyPlay.html">DailyPlay</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.DailyPlayLimit.html">DailyPlayLimit</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.Description.html">Description</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.DrawCount.html">DrawCount</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.EndTime.html">EndTime</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.EventId.html">EventId</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.Exp.html">Exp</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.FixedDrawCount.html">FixedDrawCount</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.FixedLotteryId.html">FixedLotteryId</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.FriendCount.html">FriendCount</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.FriendLimit.html">FriendLimit</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.FriendPlayerSeqNum.html">FriendPlayerSeqNum</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.GachaId.html">GachaId</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.GachaMenuId.html">GachaMenuId</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.GachaType.html">GachaType</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.ItemCount.html">ItemCount</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.ItemId.html">ItemId</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.LotteryId.html">LotteryId</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.Nickname.html">Nickname</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.OpenId.html">OpenId</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.PlayerSeqNum.html">PlayerSeqNum</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.Price.html">Price</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.PriceType.html">PriceType</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.RequestCount.html">RequestCount</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.RequestPlayerSeqNum.html">RequestPlayerSeqNum</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.RequestType.html">RequestType</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.StartTime.html">StartTime</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.Status.html">Status</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.StepCount.html">StepCount</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.Title.html">Title</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.TotalPlay.html">TotalPlay</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.TotalPlayLimit.html">TotalPlayLimit</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.UnitPrice.html">UnitPrice</a></li>
+                                                    <li class="trait"><a href="../classes/Traits.BeanParts.UpdatedAt.html">UpdatedAt</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-684695341"></a>
+                                <a href="../namespaces/Util.html" style="margin-left: 30px; padding-left: 0">Util</a>
+            </div>
+            <div id="namespace-684695341" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Util.String.html">String</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/TimeRecoveryLogics.html">TimeRecoveryLogics</a></li>
+                                                                            <li class="class"><a href="../classes/App.html">App</a></li>
+                                                    <li class="class"><a href="../classes/AppConst.html">AppConst</a></li>
+                                                    <li class="class"><a href="../classes/AppConst.html">AppConst</a></li>
+                                                    <li class="class"><a href="../classes/AppRegistry.html">AppRegistry</a></li>
+                                                    <li class="class"><a href="../classes/AppRegistry.html">AppRegistry</a></li>
+                                                    <li class="class"><a href="../classes/AuthResult.html">AuthResult</a></li>
+                                                    <li class="class"><a href="../classes/Db.html">Db</a></li>
+                                                    <li class="class"><a href="../classes/Di.html">Di</a></li>
+                                                    <li class="class"><a href="../classes/Item.html">Item</a></li>
+                                                    <li class="class"><a href="../classes/ItemTbl.html">ItemTbl</a></li>
+                                                    <li class="class"><a href="../classes/LifeTbl.html">LifeTbl</a></li>
+                                                    <li class="class"><a href="../classes/Log.html">Log</a></li>
+                                                    <li class="class"><a href="../classes/LoginBonusTbl.html">LoginBonusTbl</a></li>
+                                                    <li class="class"><a href="../classes/LoginResult.html">LoginResult</a></li>
+                                                    <li class="class"><a href="../classes/LoginTbl.html">LoginTbl</a></li>
+                                                    <li class="class"><a href="../classes/Memcache.html">Memcache</a></li>
+                                                    <li class="class"><a href="../classes/PaymentAndroid.html">PaymentAndroid</a></li>
+                                                    <li class="class"><a href="../classes/PaymentIos.html">PaymentIos</a></li>
+                                                    <li class="class"><a href="../classes/Redis.html">Redis</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Traits.BeanParts.html">\Traits\BeanParts</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Traits\BeanParts</small>CharaLimit</h1>
+                    <p><em></em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Traits.BeanParts.CharaLimit.html#method_setCharaLimit" class="">setCharaLimit()</a><br />
+                                                                    <a href="../classes/Traits.BeanParts.CharaLimit.html#method_getCharaLimit" class="">getCharaLimit()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Traits.BeanParts.CharaLimit.html#property_chara_limit" class="">$chara_limit</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/classes.models.traits.BeanParts.CharaLimit.html"><div class="path-wrapper">classes/models/traits/BeanParts/CharaLimit.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Traits\BeanParts\CharaLimit</div>
+                            </dd>
+
+                        
+                        
+                        
+                                                
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+Warning: count(): Parameter must be an array or an object that implements Countable in /opt/phpdoc/vendor/twig/twig/lib/Twig/Extension/Core.php on line 1275
+
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_chara_limit" name="property_chara_limit" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$chara_limit</h3>
+                <pre class="signature">$chara_limit : integer</pre>
+                <p><em>キャラ上限</em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setCharaLimit" name="method_setCharaLimit" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setCharaLimit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setCharaLimit(integer  <span class="argument">$chara_limit</span>) </pre>
+                <p><em>キャラ上限セット</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$chara_limit </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+Warning: count(): Parameter must be an array or an object that implements Countable in /opt/phpdoc/vendor/twig/twig/lib/Twig/Extension/Core.php on line 1275
+
+Warning: count(): Parameter must be an array or an object that implements Countable in /opt/phpdoc/vendor/twig/twig/lib/Twig/Extension/Core.php on line 1275
+
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Traits.BeanParts.CharaLimit.html"><div class="path-wrapper">\Traits\BeanParts\CharaLimit</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getCharaLimit" name="method_getCharaLimit" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getCharaLimit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getCharaLimit() : integer</pre>
+                <p><em>キャラ上限取得</em></p>
+                
+
+                
+                
+Warning: count(): Parameter must be an array or an object that implements Countable in /opt/phpdoc/vendor/twig/twig/lib/Twig/Extension/Core.php on line 1275
+
+Warning: count(): Parameter must be an array or an object that implements Countable in /opt/phpdoc/vendor/twig/twig/lib/Twig/Extension/Core.php on line 1275
+
+                                    <h4>Returns</h4>
+                    integer
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Traits.BeanParts.CharaLimit.html"><div class="path-wrapper">\Traits\BeanParts\CharaLimit</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">CharaLimit.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/classes/models/traits/BeanParts/CharaLimit.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Beans.html">\Beans</a></li>
+                                                                            <li><a href="../namespaces/Config.html">\Config</a></li>
+                                                                            <li><a href="../namespaces/Controllers.html">\Controllers</a></li>
+                                                                            <li><a href="../namespaces/Db.html">\Db</a></li>
+                                                                            <li><a href="../namespaces/GameLogic.html">\GameLogic</a></li>
+                                                                            <li><a href="../namespaces/GameObject.html">\GameObject</a></li>
+                                                                            <li><a href="../namespaces/Logger.html">\Logger</a></li>
+                                                                            <li><a href="../namespaces/Logics.html">\Logics</a></li>
+                                                                            <li><a href="../namespaces/Modules.html">\Modules</a></li>
+                                                                            <li><a href="../namespaces/PlayerObject.html">\PlayerObject</a></li>
+                                                                            <li><a href="../namespaces/Takajo.html">\Takajo</a></li>
+                                                                            <li><a href="../namespaces/Traits.html">\Traits</a></li>
+                                                                            <li><a href="../namespaces/Util.html">\Util</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on August 29th, 2018 at 09:01.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

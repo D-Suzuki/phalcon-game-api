@@ -1,0 +1,45 @@
+<?php
+
+namespace Logics\Result;
+
+Abstract Class BaseResult
+{
+
+    const COMPLETE = 0;
+
+    /**
+     * 結果コード
+     * @var int
+     */
+    private $result_code = null;
+
+    /**
+     * 結果コードセット
+	 *
+     * @param int $result_code
+     */
+    public function setResultCode(int $result_code)
+    {
+        $this->result_code = $result_code;
+    }
+
+    /**
+     * 結果コード取得
+     * @return int
+     */
+    public function getResultCode()
+    {
+        return $this->result_code;
+    }
+
+    /**
+     * クライアント用リザルト取得
+     */
+    public function getResultForClient()
+    {
+        return [
+            'result_code' => $this->getResultCode(),
+        ];
+    }
+
+}

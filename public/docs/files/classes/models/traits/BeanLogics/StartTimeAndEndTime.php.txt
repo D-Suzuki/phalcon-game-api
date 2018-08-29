@@ -1,0 +1,21 @@
+<?php
+
+namespace Traits\BeanLogics;
+
+Trait StartTimeAndEndTime
+{
+
+    use \Traits\BeanParts\StartTime;
+    use \Traits\BeanParts\EndTime;
+
+    public function inPeriod()
+    {
+        $AccessTime = \AppRegistry::getAccessTime();
+        if ($this->getStartTime() <= $AccessTime && $AccessTime <= $this->getEndTime()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+}

@@ -1,0 +1,99 @@
+<?php
+
+namespace Logics;
+
+use GameObject\Reward;
+use PlayerObject\AchiveClear;
+
+Class RewradLogic
+{
+
+    public static function getCharaListForClient(int $player_seq_num)
+    {
+
+    }
+
+    /**
+     * クライアント用アチーブリスト取得
+     * @param int $player_seq_num
+     * @param array $reward_list
+     * @pararm int $scene_id
+     * @return AddRewarsResult
+     */
+    public static function addRewards(int $player_seq_num, array $reward_list, int $scene_id)
+    {
+        $AddRewarsResult = new AddRewarsResult($player_seq_num, $reward_list, $scene_id);
+
+        $RewardBox = PlayerObject::getInstance($player_seq_num, RewardBox::class);
+        foreach ($reward_list as $Reward) {
+            $RewardBox->addReward($Reward);
+        }
+        $RewardBox->syncdb();
+
+        $AddRewarsResult->createHistory();
+        return $AddRewarsResult;
+    }
+
+    /**
+     * 報酬受取
+     * @param int $player_seq_num
+     * @param array $reward_seq_num_list
+     * @return $RecvRewardsResult
+     *
+     */
+    public static function recvRewards(int $player_seq_num, array $reward_seq_num_list)
+    {
+        AppLogger::startFunc(['$player_seq_num' => $player_seq_num, '$reward_seq_num_list' => $reward_seq_num_list]);
+
+        $RecvRewardsResult = new RecvRewardsResult($player_seq_num, $reward_seq_num_list);
+
+        $RewardBox = PlayerObject::getInstance($player_seq_num, RewardBox::class);
+        $Player    = PlayerObject::getInstance($player_seq_num, Player::class);
+        $Chara     = PlayerObject::getInstance($player_seq_num, Chara::class);
+        $Jewel     = PlayerObject::getInstance($player_seq_num, Jewel::class);
+        $Item      = PlayerObject::getInstance($player_seq_num, Item::class);
+        $Coin      = PlayerObject::getInstance($player_seq_num, Coin::class);
+
+        foreach ($reward_seq_num_list as $reward_seq_num) {
+            $RewardBoxBean = $RewardBox->getRewardBoxBean($reward_seq_num);
+            switch ($RewardBoxBean->getObjectType()) {
+                // ▼ キャラ
+                case AppConst::OBJECT_TYPE_CHARA:
+                    if ($Chara->count() < $Player->getPlayerBean()->getCharaMax()) {
+                        $Chara->addChara($RewardBoxBean->getObjectId());
+                        $RewardBox->setStatus($reward_seq_num, RewardBox::STATUS_RECVED);
+                    } else {
+
+                    }
+                    break;
+                // ▼ アイテム
+                case AppConst::OBJECT_TYPE_ITEM:
+                    $Item->addItem($RewardBoxBean->getObjectId(), $RewardBoxBean->getObjectCount());
+                    $RewardBox->setStatus($reward_seq_num, RewardBox::STATUS_RECVED);
+                    break;
+                // ▼ ジュエル
+                case AppConst::OBJECT_TYPE_JEWEL:
+                    $Jewel->incrJewel(Jewel::UNIT_PRICE_FREE, $RewardBoxBean->getObjectCount());
+                    $RewardBox->setStatus($reward_seq_num, RewardBox::STATUS_RECVED);
+                    break;
+                // ▼ コイン
+                case AppConst::OBJECT_TYPE_COIN:
+                    $Coin->incrFreeCoin($RewardBoxBean->getObjectCount());
+                    $RewardBox->setStatus($reward_seq_num, RewardBox::STATUS_RECVED);
+                    break;
+            }
+        }
+
+        // DB同期
+        $Chara->syncdb();
+        $Item->syncdb();
+        $Jewel->syncdb();
+        $Coin->syncdb();
+        $RewardBox->syncdb();
+
+        $RecvRewardsResult->createHistory();
+        AppLogger::endFunc(__METHOD__);
+        return $RecvRewardsResult;
+    }
+
+}

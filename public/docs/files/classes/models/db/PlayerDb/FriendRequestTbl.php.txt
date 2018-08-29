@@ -1,0 +1,19 @@
+<?php
+
+namespace Db\PlayerDb;
+
+Class FriendRequestTbl extends \Db\PlayerDb
+{
+
+    public static $table_name = 'friend_request';
+
+    public static $column_list = [
+        'player_seq_num',
+        'request_type',
+        'request_player_seq_num',
+        'status',
+        'created_at',
+        'updated_at',
+    ];
+
+}

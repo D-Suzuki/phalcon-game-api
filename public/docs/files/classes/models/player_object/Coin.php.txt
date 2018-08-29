@@ -1,0 +1,163 @@
+<?php
+
+namespace PlayerObject;
+
+use \Beans\Db\CoinBean;
+use \Db\PlayerDb\CoinTbl;
+
+Class Coin extends PlayerObject
+{
+
+    /**
+     * コインBean
+     * @var CoinBean
+     */
+    private $CoinBean = null;
+
+    /**
+     * コインデータ初期化
+     */
+    public function initilize()
+    {
+        \AppLogger::startFunc(__METHOD__);
+        // Bean追加
+        $CoinBean = new CoinBean([
+            'player_seq_num' => $this->player_seq_num,
+            'free_count'     => 0,
+            'charge_count'   => 0,
+            'created_at'     => \AppRegistry::getAccessTime()->format('Y-m-d H:i:s'),
+            'updated_at'     => \AppRegistry::getAccessTime()->format('Y-m-d H:i:s'),
+        ]);
+        $this->CoinBean = $CoinBean;
+        // DB追加
+        $CoinTbl = \Db\Factory::getInstance(CoinTbl::class, $this->player_seq_num);
+        $CoinTbl->insertOrUpdate([$CoinBean->toRecord()]);
+        \AppLogger::endFunc(__METHOD__);
+    }
+
+    /**
+     * クライアント様コインデータ取得
+     * @return array
+     */
+    public function getCoinDataForClient()
+    {
+        \AppLogger::startFunc(__METHOD__);
+        $CoinBean = $this->getCoinBean();
+        if (is_null($CoinBean) === true) {
+            $coin_data_for_client = [
+                'free_count'   => 0,
+                'charge_count' => 0,
+            ];
+        } else {
+            $coin_data_for_client = [
+                'free_count'   => $CoinBean->getFreeCount(),
+                'charge_count' => $CoinBean->getChargeCount(),
+            ];
+        }
+        \AppLogger::endFunc(__METHOD__);
+        return $coin_data_for_client;
+    }
+
+    /**
+     * コイン保持判定
+     * @param int $check_count
+	 * @return bool
+     */
+    public function hasCoin(int $check_count)
+    {
+        \AppLogger::startFunc(__METHOD__, ['check_count' => $check_count]);
+        $has_jewel = false;
+        if ($check_count <= $this->getTotalCount()) {
+            $has_jewel = true;
+        } else {
+            $has_jewel = false;
+        }
+        \AppLogger::endFunc(__METHOD__);
+        return $has_jewel;
+    }
+
+    /**
+     * コイン使用
+	 * @param int $decr_count
+     */
+    public function decrCoin(int $decr_count)
+    {
+        \AppLogger::startFunc(__METHOD__, ['$decr_count' => $decr_count]);
+        if ($this->hasCoin($decr_count) === false) {
+            throw new \Exception();
+        }
+        // ▼ Bean更新
+        $remain_use_count = $decr_count;
+
+        // ▼ DB更新
+        $CoinTbl = \Db\Factory::getInstance(CoinTbl::class, $this->player_seq_num);
+        $CoinTbl->insertOrUpdate([$CoinBean->toRecord()]);
+        \AppLogger::endFunc(__METHOD__);
+    }
+
+    /**
+     * コイン追加
+     * @param int $add_count
+     */
+    public function incrFreeCoin(int $incr_count)
+    {
+        \AppLogger::startFunc(__METHOD__, ['$incr_count' => $incr_count]);
+        // Bean更新
+        $CoinBean = $this->getCoinBean();
+        $CoinBean->setFreeCoin($CoinBean->getFreeCoin() + $incr_count);
+        $CoinBean->setUpdateFlg(true);
+        // DB更新
+        $CoinTbl = \Db\Factory::getInstance(CoinTbl::class, $this->player_seq_num);
+        $CoinTbl->insertOrUpdate([$CoinBean->toRecord()]);
+        \AppLogger::endFunc(__METHOD__);
+    }
+
+    /**
+     * 合計ジュエル数取得
+	 * @return int
+     */
+    private function getTotalCount()
+    {
+        \AppLogger::startFunc(__METHOD__);
+        $CoinBean = $this->getCoinBean();
+        \AppLogger::endFunc(__METHOD__);
+        return $CoinBean->getFreeCount() + $CoinBean->getChargeCount();
+    }
+
+    /**
+     * ジュエルBeanリスト取得
+     * @return array
+     */
+    public function getCoinBean()
+    {
+        \AppLogger::startFunc(__METHOD__);
+        if (is_null($this->CoinBean) === true) {
+            $this->setCoinBean();
+        }
+        \AppLogger::endFunc(__METHOD__);
+        return $this->CoinBean;
+    }
+
+    /**
+     * コインBeanセット
+     */
+    private function setCoinBean()
+    {
+        \AppLogger::startFunc(__METHOD__);
+        $CoinTbl = \Db\Factory::getInstance(CoinTbl::class, $this->player_seq_num);
+        $record  = $CoinTbl->findByPk($this->player_seq_num);
+        if (count($record) > 0) {
+            $this->CoinBean = new CoinBean($record);
+        } else {
+            $this->CoinBean = new CoinBean([
+                'player_seq_num' => $this->player_seq_num,
+                'free_count'     => 0,
+                'charge_count'   => 0,
+                'created_at'     => \AppRegistry::getAccessTime()->format('Y-m-d H:i:s'),
+                'updated_at'     => \AppRegistry::getAccessTime()->format('Y-m-d H:i:s'),
+            ]);
+        }
+        \AppLogger::endFunc(__METHOD__);
+    }
+
+}

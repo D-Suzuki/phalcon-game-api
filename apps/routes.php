@@ -1,0 +1,21 @@
+
+<?php
+
+$Router = new \Phalcon\Mvc\Router;
+$Router->setDefaultModule('game');
+$Router->add('/:controller/:action',
+    [
+        'controller' => 1,
+        'action'     => 2,
+    ]
+);
+$Router->add('/admin/:params',
+    [
+        'module'     => 'admin',
+        'controller' => 'index',
+        'action'     => 'index',
+        'params'     => 1,
+    ]
+);
+
+return $Router;
