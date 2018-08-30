@@ -1,4 +1,3 @@
-
 <?php
 
 $Router = new \Phalcon\Mvc\Router;

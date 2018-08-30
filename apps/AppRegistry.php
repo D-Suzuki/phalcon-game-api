@@ -20,7 +20,7 @@ abstract Class AppRegistry
 
 	/**
 	 * DBタイプ
-	 * @var string    
+	 * @var string
 	 */
 	private static $db_type = null;
 

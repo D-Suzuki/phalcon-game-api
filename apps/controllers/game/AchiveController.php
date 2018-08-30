@@ -4,17 +4,20 @@ namespace Controllers\Game;
 
 use PlayerObject\PlayerObject;
 use Logger\AppLogger;
+use Logics\AchiveLogic;
+use AppRegistry;
 
 class AchiveController extends BaseController
 {
 
     /**
      * アチーブリスト取得
+     * @return null
      */
     public function listAction()
     {
         AppLogger::startFunc(__METHOD__);
-        \AppRegistry::setDbType(\AppConst::DB_TYPE_READ);
+        AppRegistry::setDbType(\AppConst::DB_TYPE_READ);
 
         $this->setResponseData([
             'achive_list' => AchiveLogic::getAchiveListForClient($this->player_seq_num),

@@ -1,0 +1,92 @@
+<?php
+
+namespace Master;
+
+use Beans\Master\GachaStepUpMenuBean;
+use Logger\AppLogger;
+
+Class GachaStepUpMenuMaster extends BaseMaster
+{
+
+    /**
+     * ファイル名取得
+     * @return string
+     */
+    protected static function getFileName()
+    {
+        return 'gacha_setp_up_menu_master.php';
+    }
+
+    /**
+     * ガチャメニューBeanリスト
+	 * @var mixed
+     */
+    private static $gacha_menu_bean_list = null;
+
+    /**
+     * ガチャメニューBeanリスト取得
+	 * @return array[gacha_id][step_count] = GachaMenuBean
+     */
+    public static function getGachaMenuBeanList()
+    {
+        \AppLogger::startFunc(__METHOD__);
+        if (is_null(self::$gacha_menu_bean_list) === true) {
+            self::setGachaMenuBeanList();
+        }
+        \AppLogger::endFunc(__METHOD__);
+        return self::$gacha_menu_bean_list;
+    }
+
+    /**
+     * 指定ガチャメニューBeanリスト取得
+     * @param int $gacha_id
+     * @return array
+     */
+    public static function getGachaMenuBeanListByGachaId(int $gacha_id)
+    {
+        \AppLogger::startFunc(__METHOD__, ['$gacha_id' => $gacha_id]);
+        $gacha_menu_bean_list = [];
+        $gacha_menu_bean_list_each_gacha_id = self::getGachaMenuBeanList();
+        if (is_null($gacha_menu_bean_list_each_gacha_id) === false
+         && array_key_exists($gacha_id, $gacha_menu_bean_list_each_gacha_id) === true) {
+            $gacha_menu_bean_list = $gacha_menu_bean_list_each_gacha_id[$gacha_id];
+        }
+        \AppLogger::endFunc(__METHOD__);
+        return $gacha_menu_bean_list;
+    }
+
+    /**
+     * 指定ガチャメニューBean取得
+     * @param int $gacha_id
+     * @param int $current_step
+	 * @return \Beans\MasterData\GachaMenuBean
+     */
+    public static function getGachaMenuBean(int $gacha_id, int $current_step)
+    {
+        \AppLogger::startFunc(__METHOD__, ['$gacha_id' => $gacha_id, '$current_step' => $current_step]);
+        $GachaMenuBean        = null;
+        $gacha_menu_bean_list = self::getGachaMenuBeanList();
+        if (is_null($gacha_menu_bean_list) === false
+         && array_key_exists($gacha_id, $gacha_menu_bean_list) === true
+         && array_key_exists($current_step, $gacha_menu_bean_list[$gacha_id]) === true) {
+            $GachaMenuBean = $gacha_menu_bean_list[$gacha_id][$current_step];
+        }
+        \AppLogger::endFunc(__METHOD__);
+        return $GachaMenuBean;
+    }
+
+    /**
+     * ガチャメニューBeanリストセット
+     */
+    private static function setGachaMenuBeanList()
+    {
+        \AppLogger::startFunc(__METHOD__);
+        foreach (self::getAll() as $gacha_id => $master_list) {
+            foreach ($master_list as $step_count => $master_data) {
+                self::$gacha_menu_bean_list[$gacha_id][$step_count] = new GachaStepUpMenuBean($master_data);
+            }
+        }
+        \AppLogger::endFunc(__METHOD__);
+    }
+
+}
