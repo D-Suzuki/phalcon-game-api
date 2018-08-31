@@ -1,0 +1,17 @@
+<?php
+
+namespace Beans\Master;
+
+Class EventBean extends BaseMasterBean
+{
+
+    use \Traits\BeanParts\EventId;
+    use \Traits\BeanParts\EventType;
+    use \Traits\BeanParts\Name;
+    use \Traits\BeanParts\StartTime;
+    use \Traits\BeanParts\EndTime;
+
+    use \Traits\BeanLogics\StartTimeAndEndTime;
+
+}
+

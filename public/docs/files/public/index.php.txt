@@ -7,8 +7,9 @@ use \Phalcon\Loader;
 use \Phalcon\Mvc\Router;
 use \Phalcon\Mvc\Dispatcher;
 
-use \Phalbase\Config\Manager    as ConfigManager;
-use \Phalbase\Db\Manager        as DbManager;
+use \Takajo\Config\Manager    as ConfigManger;
+use \Takajo\Db\Manager        as DbManager;
+use \Takajo\Bootstrap\Service as Service;
 
 define('BASE_PATH',   dirname(__DIR__));
 define('APPS_PATH',   BASE_PATH . '/apps');
@@ -58,11 +59,11 @@ try {
     $Loader = new Loader();
     $Loader->registerNamespaces(
         [
-            'Phalbase'     => LIBS_PATH . '/Phalbase/',
+            'Takajo'       => LIBS_PATH . '/Takajo/',
             'Util'         => LIBS_PATH . '/Util',
-            'Config'       => APPS_PATH . '/config/',
-            'Controllers'  => APPS_PATH . '/controllers/',
-            'Logger'       => APPS_PATH . '/logger/',
+            'Config'       => CONFIG_PATH . '/' . \AppRegistry::getEnv() . '/',
+            'Logger'       => SYSTEM_PATH . '/logger/',
+            'Controllers'  => APPS_PATH . '/controllers',
             'Logics'       => APPS_PATH . '/logics/',
             'Beans'        => APPS_PATH . '/models/beans/',
             'Cache'        => APPS_PATH . '/models/cache/',
@@ -74,22 +75,6 @@ try {
         ]
     );
     $Loader->register();
-
-    var_dump(\Config\Db\DbWrite::load());exit;
-
-    DbManager::addConfig(\Config\Db\DbWrite::load());
-    DbManager::addConfig(\Config\Db\DbRead::load());
-
-    LoggerManager::addConfig(\Config\Log\LogApp::load());
-    LoggerManager::addConfig(\Config\Log\LogPayment::load());
-
-    DbManager::useCustomListener();
-
-
-echo 'test';exit;
-
-
-
 
     /*$Di->set(
         "view",
@@ -103,19 +88,17 @@ echo 'test';exit;
     /**
      * 設定クラスセット
      */
-    ConfigManager::setClass('app',      Config\App::class);
-    ConfigManager::setClass('db',       Config\Db::class);
-    ConfigManager::setClass('di',       Config\Di::class);
-    ConfigManager::setClass('log',      Config\Log::class);
-    ConfigManager::setClass('memcache', Config\Memcache::class);
-    ConfigManager::setClass('redis',    Config\Redis::class);
-
-var_dump(new Config\Db);exit;
+    ConfigManger::setClass('app',      Config\App::class);
+    ConfigManger::setClass('db',       Config\Db::class);
+    ConfigManger::setClass('di',       Config\Di::class);
+    ConfigManger::setClass('log',      Config\Log::class);
+    ConfigManger::setClass('memcache', Config\Memcache::class);
+    ConfigManger::setClass('redis',    Config\Redis::class);
 
     /**
      * DIコンテナセット
      */
-	//$Config  = ConfigManager::getConfig('di');
+	//$Config  = ConfigManger::getConfig('di');
     //$Service = new Service();
     //$Di      = $Service->createDefaultDi($Config);
 
@@ -142,3 +125,4 @@ var_dump(new Config\Db);exit;
     echo $e->getMessage();
 
 }
+

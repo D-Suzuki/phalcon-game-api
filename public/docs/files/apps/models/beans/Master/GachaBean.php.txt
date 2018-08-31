@@ -1,0 +1,16 @@
+<?php
+
+namespace Beans\Master;
+
+Class GachaBean extends BaseMasterBean
+{
+
+    use \Traits\BeanParts\GachaId;
+    use \Traits\BeanParts\GachaType;
+    use \Traits\BeanParts\PriceType;
+    use \Traits\BeanParts\Title;
+    use \Traits\BeanParts\Description;
+
+    use \Traits\BeanLogics\StartTimeAndEndTime;
+
+}

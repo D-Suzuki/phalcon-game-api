@@ -1,0 +1,64 @@
+<?php
+
+namespace Master;
+
+use GameObject\LotteryBox;
+use Logger\AppLogger;
+
+Class GachaCharaTableMaster extends BaseMaster
+{
+
+    /**
+     * ファイル名取得
+     * @return string
+     */
+    protected static function getFileName()
+    {
+        return 'gacha_chara_table_master_' . self::$gacha_table_id . '.php';
+    }
+
+    /**
+     * ガチャテーブルID
+     */
+    private static $gacha_table_id = null;
+
+    /**
+     * 抽選箱インスタンスリスト
+     * @var array
+     */
+    private static $lottery_box_list = [];
+
+    /**
+     * 抽選箱インスタンス取得
+     */
+    public static function getLotteryBox(int $gacha_table_id, $chara_rarity)
+    {
+        AppLogger::startFunc(__METHOD__, ['$gacha_table_id' => $gacha_table_id, '$chara_rarity' => $chara_rarity]);
+        $stack_key = $gacha_table_id . '_' . $chara_rarity;
+        if (isset(self::$lottery_box_list[$stack_key]) === false) {
+            self::$lottery_box_list[$stack_key] = self::createLotteryBox($gacha_table_id, $chara_rarity);
+        }
+        AppLogger::endFunc(__METHOD__);
+        return self::$lottery_box_list[$stack_key];
+    }
+
+    /**
+     * 抽選箱インスタンスセット
+     */
+    private static function createLotteryBox(int $gacha_table_id, int $chara_rarity)
+    {
+        AppLogger::startFunc(__METHOD__, ['$gacha_table_id' => $gacha_table_id, '$chara_rarity' => $chara_rarity]);
+        self::$gacha_table_id = $gacha_table_id;
+
+        $LotteryBox = new LotteryBox();
+        foreach(parent::getAll() as $chara_table) {
+            if ($chara_table['rarity'] == $chara_rarity) {
+                $LotteryBox->addPrize($chara_table['chara_id'], $chara_table['weight']);
+            }
+        }
+        AppLogger::endFunc(__METHOD__);
+        return $LotteryBox;
+    }
+
+}
+
