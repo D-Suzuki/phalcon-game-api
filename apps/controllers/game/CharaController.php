@@ -2,6 +2,7 @@
 
 namespace Controllers\Game;
 
+use Logics\CharaLogic;
 use PlayerObject\PlayerObject;
 use PlayerObject\Chara;
 
@@ -13,18 +14,18 @@ class CharaController extends BaseController
      */
     public function listAction()
     {
-        AppLogger::startFunc(__METHOD__);
+        \AppLogger::startFunc(__METHOD__);
 
         $last_access_time = $this->request->get('last_access_time');
         $LastAccessTime   = strlen($last_access_time) === 0 ? null : new DateTime($last_access_time);
 
-        AppRegistry::setDbType(AppConst::DB_TYPE_READ);
+        \AppRegistry::setDbType(\AppConst::DB_TYPE_READ);
 
         $this->setResponseData([
             'chara_list' => CharaLogic::getCharaListForClient($this->player_seq_num, $LastAccessTime, null),
         ]);
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
     }
 
 }

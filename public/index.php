@@ -1,14 +1,10 @@
 <?php
 error_reporting(E_ALL);
 
-use \Phalcon\Mvc\Application;
 use \Phalcon\Di\FactoryDefault;
 use \Phalcon\Loader;
 use \Phalcon\Mvc\Router;
 use \Phalcon\Mvc\Dispatcher;
-
-use \Phalbase\Config\Manager    as ConfigManager;
-use \Phalbase\Db\Manager        as DbManager;
 
 define('BASE_PATH',   dirname(__DIR__));
 define('APPS_PATH',   BASE_PATH . '/apps');
@@ -20,20 +16,43 @@ define('TASKS_PATH',  BASE_PATH . '/tasks');
 try {
 
     /**
-     * App定数をロード
+     * オートローダー登録
      */
-    require_once APPS_PATH . '/AppConst.php';
+    $Loader = new Loader();
+    $Loader->registerDirs(
+        [
+            APPS_PATH,
+            APPS_PATH . '/logger/',
+        ]
+    );
+    $Loader->registerNamespaces(
+        [
+            'Phalbase'     => LIBS_PATH . '/Phalbase',
+            'Util'         => LIBS_PATH . '/Util',
+            'Config'       => APPS_PATH . '/config',
+            'Controllers'  => APPS_PATH . '/controllers',
+            'Logger'       => APPS_PATH . '/logger',
+            'Logics'       => APPS_PATH . '/logics',
+            'Beans'        => APPS_PATH . '/models/beans',
+            'Cache'        => APPS_PATH . '/models/cache',
+            'Db'           => APPS_PATH . '/models/db',
+            'GameObject'   => APPS_PATH . '/models/game_object',
+            'Master'       => APPS_PATH . '/models/master',
+            'PlayerObject' => APPS_PATH . '/models/player_object',
+            'Traits'       => APPS_PATH . '/models/traits',
+        ]
+    );
+    $Loader->register();
 
     /**
      * Appレジストリを初期化
      */
-    require_once APPS_PATH . '/AppRegistry.php';
     AppRegistry::intialize();
 
     /**
      * ルーティング設定
      */
-    $Di = new FactoryDefault;
+    $Di = new FactoryDefault();
     $Di->set('router', function() {
         return require_once APPS_PATH . '/routes.php';
     });
@@ -52,45 +71,6 @@ try {
         }
     );
 
-    /**
-     * オートローダー登録
-     */
-    $Loader = new Loader();
-    $Loader->registerNamespaces(
-        [
-            'Phalbase'     => LIBS_PATH . '/Phalbase/',
-            'Util'         => LIBS_PATH . '/Util',
-            'Config'       => APPS_PATH . '/config/',
-            'Controllers'  => APPS_PATH . '/controllers/',
-            'Logger'       => APPS_PATH . '/logger/',
-            'Logics'       => APPS_PATH . '/logics/',
-            'Beans'        => APPS_PATH . '/models/beans/',
-            'Cache'        => APPS_PATH . '/models/cache/',
-            'Db'           => APPS_PATH . '/models/db',
-            'GameObject'   => APPS_PATH . '/models/game_object/',
-            'Master'       => APPS_PATH . '/models/master/',
-            'PlayerObject' => APPS_PATH . '/models/player_object/',
-            'Traits'       => APPS_PATH . '/models/traits',
-        ]
-    );
-    $Loader->register();
-
-    var_dump(\Config\Db\DbWrite::load());exit;
-
-    DbManager::addConfig(\Config\Db\DbWrite::load());
-    DbManager::addConfig(\Config\Db\DbRead::load());
-
-    LoggerManager::addConfig(\Config\Log\LogApp::load());
-    LoggerManager::addConfig(\Config\Log\LogPayment::load());
-
-    DbManager::useCustomListener();
-
-
-echo 'test';exit;
-
-
-
-
     /*$Di->set(
         "view",
         function () {
@@ -103,14 +83,12 @@ echo 'test';exit;
     /**
      * 設定クラスセット
      */
-    ConfigManager::setClass('app',      Config\App::class);
-    ConfigManager::setClass('db',       Config\Db::class);
-    ConfigManager::setClass('di',       Config\Di::class);
-    ConfigManager::setClass('log',      Config\Log::class);
-    ConfigManager::setClass('memcache', Config\Memcache::class);
-    ConfigManager::setClass('redis',    Config\Redis::class);
-
-var_dump(new Config\Db);exit;
+    foreach (Config\Db::get() as $Config) {
+        Phalbase\Db\Manager::addConfig($Config);
+    }
+    foreach (Config\Log::get() as $Config) {;
+        Phalbase\Logger\Manager::addConfig($Config);
+    }
 
     /**
      * DIコンテナセット
@@ -128,6 +106,10 @@ var_dump(new Config\Db);exit;
     $Dispatcher->setActionName($Router->getActionName());
     $Dispatcher->setParams($Router->getParams());
     $Dispatcher->dispatch();
+
+    if (Phalbase\Db\Manager::hasBeginedConnection() === true) {
+        Phalbase\Db\Manager::allCommit();
+    }
 
 } catch (\Exception $e) {
         echo $e->getMessage();exit;

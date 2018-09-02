@@ -24,14 +24,14 @@ Class PlayerLogic
      */
     public static function getPlayerForClient(int $player_seq_num): array
     {
-        AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num]);
+        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num]);
         /* @var $Player  \PlayerObject\Player */
         $Player = PlayerObject::getInstance($player_seq_num, Player::class);
         $player_for_client = [
             'exp'   => $Player->getPlayerBean()->getExp(),
             'level' => $Player->getPlayerBean()->getLevel(),
         ];
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $player_for_client;
     }
 
@@ -40,7 +40,7 @@ Class PlayerLogic
      */
     public static function createPlayer(string $nickname) :CreateResult
     {
-        AppLogger::startFunc(__METHOD__);
+        \AppLogger::startFunc(__METHOD__);
 
         // プレイヤーシーケンスNUM生成
         $player_seq_num = PlayerSequcence::getNext();
@@ -69,7 +69,7 @@ Class PlayerLogic
         $CreateResult->setPassword($PlayerAuth->getPlayerAuthBean()->getPassword());
 
         $CreateResult->setResultCode(CreateResult::COMPLETE);
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $CreateResult;
     }
 
@@ -81,7 +81,7 @@ Class PlayerLogic
      */
     public static function auth(string $auth_key, string $password): AuthResult
     {
-        AppLogger::startFunc(__METHOD__, ['$auth_key' => $auth_key, '$password' => $password]);
+        \AppLogger::startFunc(__METHOD__, ['$auth_key' => $auth_key, '$password' => $password]);
 
         $AuthResult = new AuthResult();
 
@@ -98,7 +98,7 @@ Class PlayerLogic
 		$AuthResult->setSessionKey($session_key);
 		$AuthResult->setResultCode(AuthResult::COMPLETE);
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $AuthResult;
     }
 
@@ -110,7 +110,7 @@ Class PlayerLogic
      */
     public static function addExp(int $player_seq_num, int $add_exp, int $scene_id): AddExpResult
     {
-        AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$add_exp' => $add_exp]);
+        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$add_exp' => $add_exp]);
         // 結果インスタンス初期化
         $AddExpResult = new AddExpResult($player_seq_num, $add_exp, $scene_id);
 
@@ -138,7 +138,7 @@ Class PlayerLogic
         // 結果コードセット & 履歴追加
         $AddExpResult->setResultCode(AddExpResult::COMPLETE);
         $AddExpResult->createHistory();
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $AddExpResult;
     }
 
@@ -150,7 +150,7 @@ Class PlayerLogic
      */
     private static function createSession(string $player_seq_num): String
     {
-        AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num]);
+        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num]);
 
         // セッションキー生成
         $session_key = md5(microtime() . $player_seq_num);
@@ -159,7 +159,7 @@ Class PlayerLogic
         Memcache::set($session_key, $player_seq_num);
         Memcache::set($player_seq_num, $session_key); // 機種移行の際、移行元のセッション削除のために必要
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $session_key;
     }
 

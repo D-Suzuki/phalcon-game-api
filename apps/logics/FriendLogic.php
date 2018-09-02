@@ -23,7 +23,7 @@ Class FriendLogic
      */
     public static function getFriendListForClient(int $from_player_seq_num, DateTime $LastGetTime = null)
     {
-        AppLogger::startFunc(__METHOD__, ['$from_player_seq_num' => $from_player_seq_num, '$LastAccessTime' => $LastAccessTime]);
+        \AppLogger::startFunc(__METHOD__, ['$from_player_seq_num' => $from_player_seq_num, '$LastAccessTime' => $LastAccessTime]);
 
         /* @var $Friend \PlayerObject\Friend */
         $Friend = PlayerObject::getInstance($player_seq_num, Friend::class);
@@ -41,7 +41,7 @@ Class FriendLogic
             }
         }
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $friend_list_for_client;
     }
 
@@ -53,7 +53,7 @@ Class FriendLogic
      */
     public static function getFriendRequestListForClient(int $from_player_seq_num, DateTime $LastAccessTime = null)
     {
-        AppLogger::startFunc(__METHOD__, ['$from_player_seq_num' => $from_player_seq_num, '$LastAccessTime' => $LastAccessTime]);
+        \AppLogger::startFunc(__METHOD__, ['$from_player_seq_num' => $from_player_seq_num, '$LastAccessTime' => $LastAccessTime]);
 
         $friend_request_list_for_client = [];
 
@@ -72,7 +72,7 @@ Class FriendLogic
             }
         }
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $friend_request_list_for_client;
     }
 
@@ -85,7 +85,7 @@ Class FriendLogic
      */
     public static function request(int $from_player_seq_num, int $to_player_open_id)
     {
-        AppLogger::startFunc(__METHOD__, ['$from_player_seq_num' => $from_player_seq_num, '$to_player_open_id' => $to_player_open_id]);
+        \AppLogger::startFunc(__METHOD__, ['$from_player_seq_num' => $from_player_seq_num, '$to_player_open_id' => $to_player_open_id]);
 
         // オープンIDから相手のプレイヤーシーケンスNUMを取得
         $to_player_seq_num = Player::getPlayerSeqNumByPlayerOpenId($to_player_open_id);
@@ -107,25 +107,25 @@ Class FriendLogic
         // ▼ 自分の申請送信制限チェック
         if ($FromFriendCounter->isFullRequest() === true) {
             $RequestResult->setResultCode(RequestResult::MY_REQUEST_IS_FULL);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
             return $RequestResult;
         }
         // ▼ 相手のフレンド数制限チェック
         if ($ToFriendCounter->isFullFriend() === true) {
             $RequestResult->setResultCode(RequestResult::TO_FRIEND_IS_FULL);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
             return $RequestResult;
         }
         // ▼ 申請送信済みチェック
         if ($FromFriendRequest->hasSendRequest($to_player_seq_num) === true) {
             $RequestResult->setResultCode(RequestResult::ALREADY_REQUEST);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
             return $RequestResult;
         }
         // ▼ フレンド済みチェック
         if (is_null($FromFriend->isFriend($to_player_seq_num)) === true) {
             $RequestResult->setResultCode(RequestResult::ALREADY_FRIEND);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
             return $RequestResult;
         }
 
@@ -164,7 +164,7 @@ Class FriendLogic
         // 履歴生成
         $RequestResult->createHistory();
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $RequestResult;
     }
 
@@ -176,9 +176,9 @@ Class FriendLogic
      */
     public static function accept(int $from_player_seq_num, int $to_player_open_id)
     {
-        AppLogger::startFunc(__METHOD__, ['$from_player_seq_num' => $from_player_seq_num, '$to_player_open_id' => $to_player_open_id]);
+        \AppLogger::startFunc(__METHOD__, ['$from_player_seq_num' => $from_player_seq_num, '$to_player_open_id' => $to_player_open_id]);
 
-        // オープンIDから相手のプレイヤーシーケンスNUMを取得AppLogger
+        // オープンIDから相手のプレイヤーシーケンスNUMを取得\AppLogger
         $to_player_seq_num = Player::getPlayerSeqNumByPlayerOpenId($to_player_open_id);
 
         // 必要インスタンス生成
@@ -198,19 +198,19 @@ Class FriendLogic
         // ▼ キャンセル済みチェック
         if ($FromFriendRequest->hasRecvRequest() === false) {
             $AcceptResult->setResultCode(AcceptResult::ALREADY_CANCEL);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
             return $AcceptResult;
         }
         // ▼ 自分のフレンド枠がいっぱい
         if ($FromFriendCounter->isFullFriend() === true) {
             $AcceptResult->setStatus(AcceptResult::MY_FRIEND_IS_FULL);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
             return $AcceptResult;
         }
         // ▼ 相手のフレンド枠がいっぱい
         if ($ToFriendCounter->isFullFriend() === true) {
             $AcceptResult->setStatus(AcceptResult::TO_FRIEND_IS_FULL);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
             return $AcceptResult;
         }
 
@@ -231,7 +231,7 @@ Class FriendLogic
         $AcceptResult->setStatus(AcceptResult::COMPLETE);
         $AcceptResult->createHistory();
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $AcceptResult;
     }
 
@@ -243,9 +243,9 @@ Class FriendLogic
      */
     public static function reject(int $from_player_seq_num, int $to_player_open_id)
     {
-        AppLogger::startFunc(__METHOD__, ['from_player_seq_num' => $from_player_seq_num, '$to_player_open_id' => $to_player_open_id]);
+        \AppLogger::startFunc(__METHOD__, ['from_player_seq_num' => $from_player_seq_num, '$to_player_open_id' => $to_player_open_id]);
 
-        // オープンIDか相手のプレイヤーシーケンスNUMを取得AppLogger
+        // オープンIDか相手のプレイヤーシーケンスNUMを取得\AppLogger
         $to_player_seq_num = Player::getPlayerSeqNumByPlayerOpenId($to_player_open_id);
 
         // 必要インスタンス生成
@@ -263,7 +263,7 @@ Class FriendLogic
         // ▼ キャンセル済みチェック
         if ($FromFriendRequest->hasRecvRequest() === false) {
              $RejectResult->setResultCode(AcceptResult::ALREADY_CANCEL);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
              return $AcceptResult;
         }
 
@@ -277,7 +277,7 @@ Class FriendLogic
         $RejectResult->setRequltCode(RejectResult::COMPLETE);
         $RejectResult->createHistory();
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $RejectResult;
     }
 
@@ -289,9 +289,9 @@ Class FriendLogic
      */
     public static function cancel(int $from_player_seq_num, int $to_player_seq_num)
     {
-        AppLogger::startFunc(__METHOD__, ['from_player_seq_num' => $from_player_seq_num, '$to_player_seq_num' => $to_player_seq_num]);
+        \AppLogger::startFunc(__METHOD__, ['from_player_seq_num' => $from_player_seq_num, '$to_player_seq_num' => $to_player_seq_num]);
 
-        // オープンIDから相手のプレイヤーシーケンスNUMを取得AppLogger
+        // オープンIDから相手のプレイヤーシーケンスNUMを取得\AppLogger
         $to_player_seq_num = Player::getPlayerSeqNumByPlayerOpenId($to_player_open_id);
 
         // 必要インスタンス生成
@@ -309,7 +309,7 @@ Class FriendLogic
         // ▼ フレンド成立済みチェック
         if ($FromFriendRequest->hasSendRequest() === false) {
             $CancelResult->setResultCode(CancelResult::ALREADY_FRIEND);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
             return $CancelResult;
         }
 
@@ -323,7 +323,7 @@ Class FriendLogic
         $CancelResult->setResultCode(CancelResult::COMPLETE);
         $CancelResult->createHistory();
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $CancelResult;
     }
 
@@ -335,9 +335,9 @@ Class FriendLogic
      */
     public static function remove(int $player_seq_num, $friend_seq_num)
     {
-        AppLogger::startFunc(__METHOD__, ['from_player_seq_num' => $from_player_seq_num, '$to_player_seq_num' => $to_player_seq_num]);
+        \AppLogger::startFunc(__METHOD__, ['from_player_seq_num' => $from_player_seq_num, '$to_player_seq_num' => $to_player_seq_num]);
 
-        // オープンIDから相手のプレイヤーシーケンスNUMを取得AppLogger
+        // オープンIDから相手のプレイヤーシーケンスNUMを取得\AppLogger
         $to_player_seq_num = Player::getPlayerSeqNumByPlayerOpenId($to_player_open_id);
 
         // 必要インスタンス生成
@@ -355,7 +355,7 @@ Class FriendLogic
         // ▼ 既にフレンドじゃない
         if ($FromFriend->isFriend($to_player_seq_num) === false) {
             $RemoveResult->setResultCode(RemoveResult::ALREADY_NOT_FRIEND);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
             return $RemoveResult;
         }
 
@@ -370,7 +370,7 @@ Class FriendLogic
         $RemoveResult->setResultCode(RemoveResult::COMPLETE);
         $RemoveResult->createHistory();
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $RemoveResult;
     }
 

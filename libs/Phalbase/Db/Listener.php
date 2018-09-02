@@ -27,9 +27,9 @@ Class Listener
     /**
      * DBコネクション毎にListenerインスタンスが生成される
      * コネクションとリスナーオブジェクトは 1:1 の関係
-     * @param \Phalcon\Logger\Adapter $Logger
+     * @param string $connection_id
      */
-    public function __construct($connection_id) {
+    public function __construct(string $connection_id) {
         $this->connection_id = $connection_id;
     }
 
@@ -37,9 +37,9 @@ Class Listener
      * 接続時
      * コネクションを\Db\ManagerのconnectionPoolへ放り込む
      * @param string $event
-     * @param \Takajo\Db\Adapter $Connection
+     * @param \Phalcon\Db\Adapter $Connection
      */
-    public function afterConnect($event, $Connection)
+    public function afterConnect($event, \Phalcon\Db\Adapter $Connection)
     {
         Manager::setConnection($this->connection_id, $Connection);
     }
@@ -48,9 +48,9 @@ Class Listener
      * トランザクションスタート時
      * \Db\Managerへトランザクションスタートしたことを知らせる
      * @param string $event
-     * @param \Takajo\Db\Adapter $Connection
+     * @param \Phalcon\Db\Adapter $Connection
      */
-    public function beginTransaction($event, $Connection)
+    public function beginTransaction($event, \Phalcon\Db\Adapter $Connection)
     {
         Manager::addBeginedConnectionId($this->connection_id);
     }
@@ -59,9 +59,9 @@ Class Listener
      * クエリ実行前
      *
      * @param string $event
-     * @param \Takajo\Db\Adapter $Connection
+     * @param \Phalcon\Db\Adapter $Connection
      */
-    public function beforeQuery($event, $Connection)
+    public function beforeQuery($event, \Phalcon\Db\Adapter $Connection)
     {
     }
 
@@ -69,9 +69,9 @@ Class Listener
      * クエリ実行後
      * クエリのロギングを行う
      * @param string $event
-     * @param \Takajo\Db\Adapter $Connection
+     * @param \Phalcon\Db\Adapter $Connection
      */
-    public function afterQuery($event, $Connection)
+    public function afterQuery($event, \Phalcon\Db\Adapter $Connection)
     {
     }
 
@@ -79,9 +79,9 @@ Class Listener
      * ロールバック時
      * \Db\Managerへロールバックしたことを知らせる
      * @param string $event
-     * @param \Takajo\Db\Adapter $Connection
+     * @param \Phalcon\Db\Adapter $Connection
      */
-    public function rollbackTransaction($event, $Connection)
+    public function rollbackTransaction($event, \Phalcon\Db\Adapter $Connection)
     {
         Manager::deleteBeginedTransaction($this->connection_id);
     }
@@ -90,9 +90,9 @@ Class Listener
      * コミット時
      * \Db\Managerへコミットしたことを知らせる
      * @param string $event
-     * @param \Takajo\Db\Adapter $Connection
+     * @param \Phalcon\Db\Adapter $Connection
      */
-    public function commitTransaction($event, $Connection)
+    public function commitTransaction($event, \Phalcon\Db\Adapter $Connection)
     {
         Manager::deleteBeginedTransaction($this->connection_id);
     }
@@ -100,9 +100,9 @@ Class Listener
     /**
      * 切断時
      * @param string $event
-     * @param \Takajo\Db\Adapter $Connection
+     * @param \Phalcon\Db\Adapter $Connection
      */
-    public function beforeDisconnect($event, $Connection)
+    public function beforeDisconnect($event, \Phalcon\Db\Adapter $Connection)
     {
         Manager::deleteBeginedTransaction($Connection->getConnectionId());
     }

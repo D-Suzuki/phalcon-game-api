@@ -2,12 +2,8 @@
 
 namespace Phalbase\Db;
 
-use Sysbase\Db\Manager as DbManager;
-
 abstract class Basedb
 {
-
-    /* ▼ -------------------- ▼ private propety ▼ -------------------- ▼ */
 
     /**
      * コネクションID
@@ -32,9 +28,6 @@ abstract class Basedb
      * @var array
      */
     private $bindTypes = array();
-
-    /* ▲ -------------------- ▲ private propety ▲ -------------------- ▲ */
-    /* ▼ -------------------- ▼ public function ▼ -------------------- ▼ */
 
     /**
      * コンストラクタ
@@ -151,7 +144,7 @@ abstract class Basedb
      */
     public function select()
     {
-        $Connection = DbManager::getConnection($this->connection_id);
+        $Connection = Manager::getConnection($this->connection_id);
         if (empty($this->bindTypes) === TRUE) {
             $result = $Connection->query($this->getQuery(), $this->getBindParams());
         } else {
@@ -169,7 +162,7 @@ abstract class Basedb
      */
     public function selectRow()
     {
-        $Connection = DbManager::getConnection($this->connection_id);
+        $Connection = Manager::getConnection($this->connection_id);
         if (empty($this->getBindTypes()) === TRUE) {
             $result = $Connection->query($this->getQuery(), $this->getBindParams());
         } else {
@@ -187,7 +180,7 @@ abstract class Basedb
      */
     public function getPdoStatement()
     {
-        $Connection = DbManager::getConnection($this->connection_id);
+        $Connection = Manager::getConnection($this->connection_id);
         $Statement  = $Connection->prepare($this->getQuery());
         if (empty($this->getBindTypes()) === TRUE) {
             $Statement = $Connection->executePrepared($statement, $this->getBindParams());
@@ -204,7 +197,7 @@ abstract class Basedb
      */
     public function exec()
     {
-        $Connection = DbManager::getConnection($this->connection_id);
+        $Connection = Manager::getConnection($this->connection_id);
         if (empty($this->getBindTypes()) === TRUE) {
             $result = $Connection->execute($this->getQuery(), $this->getBindParams());
             $this->resetQueryAndParams();
@@ -222,7 +215,7 @@ abstract class Basedb
      */
     public function getLastInsertId()
     {
-        $Connection = DbManager::getConnection($this->connection_id);
+        $Connection = Manager::getConnection($this->connection_id);
         return $Connection->lastInsertId();
     }
 
@@ -231,7 +224,7 @@ abstract class Basedb
      */
     public function beginTransaction()
     {
-        $Connection = DbManager::getConnection($this->connection_id);
+        $Connection = Manager::getConnection($this->connection_id);
         $Connection->begin();
     }
 
@@ -240,7 +233,7 @@ abstract class Basedb
      */
     public function closeConnection()
     {
-        $Connection = DbManager::getConnection($this->connection_id);
+        $Connection = Manager::getConnection($this->connection_id);
         $Connection->close();
     }
 
@@ -250,13 +243,11 @@ abstract class Basedb
      */
     public function reConnect($isBegin = false)
     {
-        $Connection = DbManager::getConnection($this->connetin_id);
+        $Connection = Manager::getConnection($this->connetin_id);
         $Connection->connect();
         if ($isBegin) {
             $this->beginTransaction();
         }
     }
-
-    /* ▲ -------------------- ▲ public function ▲ -------------------- ▲ */
 
 }

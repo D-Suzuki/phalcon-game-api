@@ -1,11 +1,21 @@
 <?php
 
-namespace Takajo\Logger;
-
-use \Phalbase\Config\Manager as ConfigManager;
+namespace Phalbase\Logger;
 
 abstract Class Manager
 {
+
+    private static $config_instance_list = [];
+
+    public static function addConfig(\Phalcon\Config $Config)
+    {
+        self::$config_instance_list[$Config->log_id] = $Config;
+    }
+
+    private static function getConfig($log_id)
+    {
+        return self::$config_instance_list[$log_id];
+    }
 
     /**
      * ログインスタンスリスト
@@ -31,7 +41,7 @@ abstract Class Manager
      */
     public static function createInstance($log_id)
     {
-        $Config       = ConfigManager::getConfig('log', $log_id);
+        $Config       = self::getConfig($log_id);
         $logger_class = '\\Phalcon\\Logger\\Adapter\\' . $Config->adapter;
         $Logger       = new $logger_class($Config->file_path);
         $Logger->setLogLevel($Config->log_level);

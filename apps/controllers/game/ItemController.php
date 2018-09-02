@@ -26,7 +26,7 @@ class ItemController extends BaseController
      */
     public function listAction()
     {
-        AppLogger::startFunc(__METHOD__);
+        \AppLogger::startFunc(__METHOD__);
         $last_access_time = $this->request->get('last_access_time');
         $LastAccessTime   = $last_access_time === '' ? null : new DateTime($last_access_time);
 
@@ -35,7 +35,7 @@ class ItemController extends BaseController
         $this->setResponseData([
             'item_list' => $Item->getItemListForClient($LastAccessTime),
         ]);
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
     }
 
 }

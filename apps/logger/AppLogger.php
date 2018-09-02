@@ -1,8 +1,6 @@
 <?php
 
-namespace Logger;
-
-Class AppLogger extends \Takajo\Logger\BaseLogger
+Class AppLogger extends \Phalbase\Logger\BaseLogger
 {
 
     public static $log_id = 'app_log';

@@ -10,13 +10,13 @@ class GachaController extends BaseController
      */
     public function listAction()
     {
-        AppLogger::startFunc(__METHOD__);
-        AppRegistry::setDbType(AppConst::DB_TYPE_READ);
+        \AppLogger::startFunc(__METHOD__);
+        \AppRegistry::setDbType(\AppConst::DB_TYPE_READ);
 
         $this->setResponseData([
             'gacha_list' => GachaLogic::getGachaListForClient($this->player_seq_num),
         ]);
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
     }
 
     /**
@@ -24,7 +24,7 @@ class GachaController extends BaseController
      */
     public function playAction()
     {
-        AppLogger::startFunc(__METHOD__);
+        \AppLogger::startFunc(__METHOD__);
         $gacha_id   = parent::getRequest('gacha_id', $requierd_flg = true);
         $draw_count = parent::getRequest('draw_count', $requierd_flg = true);
 
@@ -38,7 +38,7 @@ class GachaController extends BaseController
             'chara_list'  => CharaLogic::getCharaListForClient($this->player_seq_num, AppRegistry::getAccessTime()),
 			'item_list'   => ItemLogic::getItemListForClient($this->player_seq_num, AppRegistry::getAccessTime()),
         ]);
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
     }
 
 }

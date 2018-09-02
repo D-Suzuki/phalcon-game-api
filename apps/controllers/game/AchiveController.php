@@ -3,9 +3,7 @@
 namespace Controllers\Game;
 
 use PlayerObject\PlayerObject;
-use Logger\AppLogger;
 use Logics\AchiveLogic;
-use AppRegistry;
 
 class AchiveController extends BaseController
 {
@@ -16,13 +14,13 @@ class AchiveController extends BaseController
      */
     public function listAction()
     {
-        AppLogger::startFunc(__METHOD__);
+        \AppLogger::startFunc(__METHOD__);
         AppRegistry::setDbType(\AppConst::DB_TYPE_READ);
 
         $this->setResponseData([
             'achive_list' => AchiveLogic::getAchiveListForClient($this->player_seq_num),
         ]);
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
     }
 
     /**
@@ -30,7 +28,7 @@ class AchiveController extends BaseController
      */
     public function clearAction()
     {
-        AppLogger::startFunc(__METHOD__);
+        \AppLogger::startFunc(__METHOD__);
         $achive_id = $this->request->get('achive_id');
 
         /* @var $ClearResult \GameLogic\Result\Achive\ClearResult */
@@ -40,7 +38,7 @@ class AchiveController extends BaseController
             'clear_result' => $ClearResult->getRresultForClient(),
             'achive_list'  => AchiveLogic::getAchiveListForClient($this->player_seq_num),
         ]);
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
     }
 
 }

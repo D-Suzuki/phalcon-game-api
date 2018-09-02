@@ -5,7 +5,6 @@ namespace Logics;
 use Master\AchiveMaster;
 use Result\Achive\ClearResult;
 use PlayerObject\AchiveClear;
-use Logger\AppLogger;
 
 Class AchiveLogic
 {
@@ -17,7 +16,7 @@ Class AchiveLogic
      */
     public static function getAchiveListForClient(int $player_seq_num)
     {
-        AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num]);
+        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num]);
         $achive_list_for_client = [];
 
         $achive_bean_list = AchiveMaster::getAchiveBeanList();
@@ -38,7 +37,7 @@ Class AchiveLogic
             }
         }
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $achive_list_for_client;
     }
 
@@ -50,7 +49,7 @@ Class AchiveLogic
      */
     public static function clearAchive(int $player_seq_num, int $achive_id)
     {
-        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$achive_id' => $achive_id]);
+        \\AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$achive_id' => $achive_id]);
 
         // 必要インスタンス生成
         $ClearResult = new ClearResult($player_seq_num, $achive_id);
@@ -67,13 +66,13 @@ Class AchiveLogic
         // クリア済判定
         if ($AchiveClear->isCleared($achive_id) === true) {
             $ClearResult->setResult(ClearResult::ALREADY_CLEARED);
-            \AppLogger::endFunc(__METHOD__);
+            \\AppLogger::endFunc(__METHOD__);
             return $ClearResult;
         }
         // クリア判定
         if (self::isClear($player_seq_num, $achive_id) === false) {
             $ClearResult->setResult(ClearResult::IS_NOT_CLEAR);
-            \AppLogger::endFunc(__METHOD__);
+            \\AppLogger::endFunc(__METHOD__);
             return $ClearResult;
         }
 
@@ -88,7 +87,7 @@ Class AchiveLogic
         $ClearResult->setResultCode(ClearResult::COMPLETE);
         $ClearResult->setReward($Reward);
 
-        \AppLogger::endFunc(__METHOD__);
+        \\AppLogger::endFunc(__METHOD__);
         return $ClearResult;
     }
 

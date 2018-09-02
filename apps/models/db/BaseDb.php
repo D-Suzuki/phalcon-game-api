@@ -2,7 +2,7 @@
 
 namespace Db;
 
-Class BaseDb extends \Takajo\Db\BaseDb
+Class BaseDb extends \Phalbase\Db\BaseDb
 {
 
     public function findByPk($pk_value)

@@ -15,7 +15,7 @@ Class LotteryLogic
      */
     public static function draw(int $lottery_id)
     {
-        AppLogger::startFunc(__METHOD__, ['$lottery_id' => $lottery_id]);
+        \AppLogger::startFunc(__METHOD__, ['$lottery_id' => $lottery_id]);
         $DrawResult = new DrawResult($lottery_id);
 
         $object_type = self::drawObject($lottery_id);
@@ -32,7 +32,7 @@ Class LotteryLogic
             default:
                 throw new \Exception();
         }
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $DrawResult;
     }
 

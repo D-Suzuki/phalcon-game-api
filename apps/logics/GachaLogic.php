@@ -22,7 +22,7 @@ Class GachaLogic
      */
     public static function getGachaListForClient(int $player_seq_num)
     {
-        AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num]);
+        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num]);
 
         $gacha_list_for_client = [];
         $gacha_bean_list       = GachaMaster::getGachaBeanList();
@@ -46,7 +46,7 @@ Class GachaLogic
             }
         }
 
-        AppLogger::endFunc(__METHOD__, $gacha_list_for_client);
+        \AppLogger::endFunc(__METHOD__, $gacha_list_for_client);
         return $gacha_list_for_client;
     }
 
@@ -59,7 +59,7 @@ Class GachaLogic
      */
     public static function play(int $player_seq_num, int $gacha_id, int $draw_count) : PlayResult
     {
-        AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$gacha_id' => $gacha_id, '$draw_count' => $draw_count]);
+        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$gacha_id' => $gacha_id, '$draw_count' => $draw_count]);
 
         // 必要インスタンス生成
         $PlayResult   = new PlayResult($player_seq_num, $gacha_id, $draw_count);
@@ -78,21 +78,21 @@ Class GachaLogic
         // ▼ 期間チェック
         if ($GachaBean->inPeriod() === false) {
             $PlayResult->setResultCode(PlayResult::NOT_IN_PERIOD);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
             return $PlayResult;
         }
         // ▼ トータル回数制限チェック
         if ($GachaMenuBean->getTotalPlayLimit() > 0
          && $GachaMenuBean->getTotalPlayLimit() <= $GachaCounter->getTotalPlay($gacha_id, $draw_count)) {
             $PlayResult->setResultCode(PlayResult::NOT_IN_TOTAL_PLAY_LIMIT);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
             return $PlayResult;
         }
         // ▼ デイリー回数制限チェック
         if ($GachaMenuBean->getDailyPlayLimit() > 0
          && $GachaMenuBean->getDailyPlayLimit() <= $GachaCounter->getDailyPlay($gacha_id, $draw_count)) {
             $PlayResult->setResultCode(PlayResult::NOT_IN_TOTAL_DAILY_LIMIT);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
             return $PlayResult;
         }
 
@@ -170,7 +170,7 @@ Class GachaLogic
         // 結果コードセット & 履歴追加
         $PlayResult->setResultCode(PlayResult::COMPLETE);
         $PlayResult->createHistory();
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $PlayResult;
     }
 
@@ -182,7 +182,7 @@ Class GachaLogic
      */
     private static function getGachaMenuListForClient(int $player_seq_num, int $gacha_id)
     {
-        AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$gacha_id' => $gacha_id]);
+        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$gacha_id' => $gacha_id]);
 
         $gacha_menu_list_for_client = [];
 
@@ -242,7 +242,7 @@ Class GachaLogic
             }
         }
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $gacha_menu_list_for_client;
     }
 
@@ -255,7 +255,7 @@ Class GachaLogic
      */
     private static function getGachaMenuBean(int $player_seq_num, int $gacha_id, int $draw_count)
     {
-        AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$gacha_id' => $gacha_id, '$draw_count' => $draw_count]);
+        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$gacha_id' => $gacha_id, '$draw_count' => $draw_count]);
 
         $GachaMenuBean = null;
         if (GachaMaster::isValid($gacha_id) === false) {
@@ -276,7 +276,7 @@ Class GachaLogic
                 throw new \Exception('gacha_type is not valid [gacha_type=' . $GachaBean->getGachaType() . ']');
         }
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $GachaMenuBean;
     }
 
@@ -288,7 +288,7 @@ Class GachaLogic
      */
     private static function getCurrentStep(int $player_seq_num, int $gacha_id)
     {
-        AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$gacha_id' => $gacha_id]);
+        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$gacha_id' => $gacha_id]);
 
         if (GachaMaster::isValid($gacha_id) === false) {
             throw new \Exception('gacha_id is not valid [gacha_id=' . $gacha_id . ']');
@@ -310,7 +310,7 @@ Class GachaLogic
                 throw new \Exception('gacha_type is not valid [gacha_type=' . $GachaBean->getGachaType() . ']');
         }
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $current_step;
     }
 

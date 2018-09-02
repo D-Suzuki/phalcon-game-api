@@ -7,8 +7,6 @@ use Phalbase\Logger\Manager as LogManager;
 abstract class BaseLogger
 {
 
-    abstract static public function getConfig() : \Phalbase\Config\Log;
-
     /**
      * コネクションID
      * @var int

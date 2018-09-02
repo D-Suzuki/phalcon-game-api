@@ -13,7 +13,7 @@ Class ProfileController extends BaseController
      */
     public function renameAction()
     {
-        AppLogger::startFunct(__METHOD__);
+        \AppLogger::startFunct(__METHOD__);
         $nickname = $this->request->get('nickname');
 
         /* @var $RenameResult \GameObject\Result\Player\RenameResult */
@@ -24,7 +24,7 @@ Class ProfileController extends BaseController
             'profile_data'  => ProfileLogic::getProfileDataForClient($this->player_seq_num),
         ]);
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
     }
 
 }

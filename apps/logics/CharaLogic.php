@@ -12,13 +12,13 @@ Class CharaLogic
 
     /**
      * クライアント用キャラリスト取得
+     * @param int $chara_seq_num
 	 * @param DataTime $LastAccessTime
-	 * @param int $chara_seq_num
 	 * @return array
      */
     public static function getCharaListForClient(int $player_seq_num, DateTime $LastAccessTime = null, int $chara_seq_num = null) : array
     {
-        AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$last_access_time' => $LastAccessTime, '$chara_seq_num' => $chara_seq_num]);
+        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$last_access_time' => $LastAccessTime, '$chara_seq_num' => $chara_seq_num]);
 
         /* @var $Chara \PlayerObject\Chara */
         $Chara = PlayerObject::getInstance($player_seq_num, Chara::class);
@@ -44,7 +44,7 @@ Class CharaLogic
             }
         }
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $chara_list_for_client;
     }
 
@@ -56,7 +56,7 @@ Class CharaLogic
      */
     public static function addCharas(int $player_seq_num, array $chara_id_list, int $scene_id) : AddCharasResult
     {
-        AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$chara_id_list' => $chara_id_list, '$scene_id' => $scene_id]);
+        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$chara_id_list' => $chara_id_list, '$scene_id' => $scene_id]);
 
         $AddCharasResult = new AddCharasResult($player_seq_num, $scene_id);
 
@@ -75,7 +75,7 @@ Class CharaLogic
 
         $AddCharasResult->setResultCode(BaseResult::COMPLETE);
         $AddCharasResult->createHistory();
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $AddCharasResult;
     }
 

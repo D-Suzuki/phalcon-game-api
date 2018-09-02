@@ -2,9 +2,7 @@
 
 namespace Controllers\Game;
 
-use Logger\AppLogger;
-
-class BaseController extends \Takajo\Controller\BaseController
+class BaseController extends \Phalbase\Controller\BaseController
 {
 
     /**
@@ -48,8 +46,8 @@ class BaseController extends \Takajo\Controller\BaseController
      */
     public function beforeExecuteRoute()
     {
-        AppLogger::startProcess();
-        AppLogger::startFunc(__METHOD__);
+        \AppLogger::startProcess();
+        \AppLogger::startFunc(__METHOD__);
 
         // リクエストメソッドチェック
         if ($this->isValidRequestMethod() === false) {
@@ -70,7 +68,7 @@ class BaseController extends \Takajo\Controller\BaseController
 
         $this->player_seq_num = 1;
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
     }
 
     /**
@@ -78,14 +76,14 @@ class BaseController extends \Takajo\Controller\BaseController
      */
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $Dispatcher)
     {
-        AppLogger::startFunc(__METHOD__);
+        \AppLogger::startFunc(__METHOD__);
 
         $response_data = array_merge($this->getResponseData(), $this->getApiStatusResponseData());
         $this->setResponseData($response_data);
         parent::afterExecuteRoute($Dispatcher);
 
-        AppLogger::endFunc(__METHOD__);
-        AppLogger::endProcess();
+        \AppLogger::endFunc(__METHOD__);
+        \AppLogger::endProcess();
     }
 
     /**
@@ -106,9 +104,9 @@ class BaseController extends \Takajo\Controller\BaseController
 
     private function getApiStatusResponseData()
     {
-        AppLogger::startFunc(__METHOD__);
+        \AppLogger::startFunc(__METHOD__);
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return ['
             api_status' => [
                 'app_version'   => 0.01,
@@ -122,7 +120,7 @@ class BaseController extends \Takajo\Controller\BaseController
      */
     private function isValidRequestMethod()
     {
-        AppLogger::startFunc(__METHOD__);
+        \AppLogger::startFunc(__METHOD__);
         switch (\AppRegistry::getEnv()) {
             // 本番
             case \AppConst::ENV_PROD:
@@ -135,7 +133,7 @@ class BaseController extends \Takajo\Controller\BaseController
                 $is_valid = true; // 何でもよい
                 break;
         }
-        AppLogger::endFunc(__METHOD__, $is_valid);
+        \AppLogger::endFunc(__METHOD__, $is_valid);
         return $is_valid;
     }
 

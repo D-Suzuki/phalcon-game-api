@@ -20,7 +20,7 @@ Class JewelLogic
      */
     public static function getJewelDataForClient(int $player_seq_num)
     {
-        AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num]);
+        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num]);
 
         /* @var $Jewel \PlayerObject\Jewel */
         $Jewel = PlayerObject::getInstance($player_seq_num, Jewel::class);
@@ -30,7 +30,7 @@ Class JewelLogic
             'charge_jewel' => (int) $Jewel->getChargeJewel(),
         ];
 
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $jewel_data_for_client;
     }
 
@@ -43,7 +43,7 @@ Class JewelLogic
      */
     public static function useJewel(int $player_seq_num, int $use_count, int $use_type, int $scene_id)
     {
-        AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$use_count' => $use_count, '$use_type' => $use_type, '$scene_id' => $scene_id]);
+        \AppLogger::startFunc(__METHOD__, ['$player_seq_num' => $player_seq_num, '$use_count' => $use_count, '$use_type' => $use_type, '$scene_id' => $scene_id]);
 
         $UseJewelResult = new UseJewelResult($player_seq_num, $use_count, $scene_id);
 
@@ -54,7 +54,7 @@ Class JewelLogic
             $Jewel->syncdb();
         } else {
             $UseJewelResult->setResultCode(UseJewelResult::IS_NOT_ENOUGH);
-            AppLogger::endFunc(__METHOD__);
+            \AppLogger::endFunc(__METHOD__);
             return $UseJewelResult;
         }
 
@@ -62,7 +62,7 @@ Class JewelLogic
         $UseJewelResult->setUsedFreeJewel($Jewel->getUsedFreeJewel());
         $UseJewelResult->setUsedChargeJewel($Jewel->getUsedChargeJewel());
         $UseJewelResult->createHistory();
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
         return $UseJewelResult;
     }
 

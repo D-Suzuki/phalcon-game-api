@@ -25,7 +25,7 @@ Class PaymentLogic
      */
     public static function payment(int $player_seq_num, int $product_id, string $receipt, string $signature)
     {
-        AppLogger::startFunc(__METHOD__);
+        \AppLogger::startFunc(__METHOD__);
         $PaymentResult  = new PaymentResult($player_seq_num, $product_id, $receipt, $signature);
         $Player         = PlayerObject::getInstance($player_seq_num, Player::class);
         $Jewel          = PlayerObject::getInstance($player_seq_num, Jewel::class);
@@ -82,7 +82,7 @@ Class PaymentLogic
             // ロールバック処理へ
             throw new Exception( $e );
         }
-        AppLogger::endFunc(__METHOD__);
+        \AppLogger::endFunc(__METHOD__);
     }
 
 }
